@@ -6,7 +6,37 @@ board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create 4 by 4 Board for board and res
 buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create corresponding buttons for each box
 current_player = 'X'
 
-def draw(i,j):
+def check_win_or_draw(root):
+    global board
+    if board[0][0] == board[0][1] == board[0][2] and board[0][0] != 0:
+        messagebox.showinfo("You win!",f"Player {board[0][0]} wins!")
+        reset_board(root)
+    elif board[1][0] == board[1][1] == board[1][2] and board[1][0] != 0:
+        messagebox.showinfo("You win!",f"Player {board[1][0]} wins!")
+        reset_board(root)
+    elif board[2][0] == board[2][1] == board[2][2] and board[2][0] != 0:
+        messagebox.showinfo("You win!",f"Player {board[2][0]} wins!")
+        reset_board(root)
+    elif board[0][0] == board[1][0] == board[2][0] and board[0][0] != 0:
+        messagebox.showinfo("You win!",f"Player {board[0][0]} wins!")
+        reset_board(root)
+    elif board[0][1] == board[1][1] == board[2][1] and board[0][1] != 0:
+        messagebox.showinfo("You win!",f"Player {board[0][1]} wins!")
+        reset_board(root)
+    elif board[0][2] == board[1][2] == board[2][2] and board[0][2] != 0:
+        messagebox.showinfo("You win!",f"Player {board[0][2]} wins!")
+        reset_board(root)
+    elif board[0][0] == board[1][1] == board[2][2] and board[0][0] != 0:
+        messagebox.showinfo("You win!",f"Player {board[0][0]} wins!")
+        reset_board(root)
+    elif board[0][2] == board[1][1] == board[2][0] and board[0][2] != 0:
+        messagebox.showinfo("You win!",f"Player {board[0][2]} wins!")
+        reset_board(root)
+    elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
+        messagebox.showinfo("Tie!",f"The game is a tie!")
+        reset_board(root)
+
+def draw(root,i,j):
     global buttons
     global current_player
     global board
@@ -17,36 +47,36 @@ def draw(i,j):
             current_player = 'O'
         else:
             current_player = 'X'
-    check_win_or_draw()
+    check_win_or_draw(root)
 
 def create_button_paddings(root):
     global buttons
 
-    buttons[0][0] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(0,0))
+    buttons[0][0] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,0,0))
     buttons[0][0].grid(row = 0, column = 0, padx = (20,0), pady = (20,0))
 
-    buttons[0][1] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(0,1))
+    buttons[0][1] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,0,1))
     buttons[0][1].grid(row = 0, column = 1, sticky = "nsew", pady = (20,0))
 
-    buttons[0][2] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(0,2))
+    buttons[0][2] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,0,2))
     buttons[0][2].grid(row = 0, column = 2, sticky = "nsew", padx = (0,20), pady = (20,0))
 
-    buttons[1][0] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(1,0))
+    buttons[1][0] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,1,0))
     buttons[1][0].grid(row = 1, column = 0, sticky = "nsew", padx = (20,0))
 
-    buttons[1][1] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(1,1))
+    buttons[1][1] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,1,1))
     buttons[1][1].grid(row = 1, column = 1, sticky = "nsew")
 
-    buttons[1][2] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(1,2))
+    buttons[1][2] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,1,2))
     buttons[1][2].grid(row = 1, column = 2, sticky = "nsew", padx = (0,20))
 
-    buttons[2][0] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(2,0))
+    buttons[2][0] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,2,0))
     buttons[2][0].grid(row = 2, column = 0, sticky = "nsew", padx = (20,0))
 
-    buttons[2][1] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80),relief = SOLID, borderwidth = 0.5, command = lambda:draw(2,1))
+    buttons[2][1] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80),relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,2,1))
     buttons[2][1].grid(row = 2, column = 1, sticky = "nsew")
 
-    buttons[2][2] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SOLID, borderwidth = 0.5, command = lambda:draw(2,2))
+    buttons[2][2] = Button(root, text = '', height = 5, width = 10, font = ("Arial",80), relief = SUNKEN, borderwidth = 1, command = lambda:draw(root,2,2))
     buttons[2][2].grid(row = 2, column = 2, sticky = "nsew", padx = (0,20))
     #Paddings to top, right, and left sides
 
@@ -57,6 +87,8 @@ def create_button_paddings(root):
 def reset_board(root):
     global board 
     global buttons
+    global current_player
+    current_player = 'X'
     board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
     buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
     create_button_paddings(root)
