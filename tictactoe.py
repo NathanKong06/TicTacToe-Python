@@ -6,24 +6,7 @@ buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create corresponding buttons for ea
 
 def draw(i,j):
     global buttons
-    if i == 0 and j == 0:
-        buttons[0][0].configure(text = 'X', font = ("Arial",70))
-    elif i == 0 and j == 1:
-        buttons[0][1].configure(text = 'X', font = ("Arial",70))    
-    elif i == 0 and j == 2:
-        buttons[0][2].configure(text = 'X', font = ("Arial",70))
-    elif i == 1 and j == 0:
-        buttons[1][0].configure(text = 'X', font = ("Arial",70)) 
-    elif i == 1 and j == 1:
-        buttons[1][1].configure(text = 'X', font = ("Arial",70))
-    elif i == 1 and j == 2:
-        buttons[1][2].configure(text = 'X', font = ("Arial",70)) 
-    elif i == 2 and j == 0:
-        buttons[2][0].configure(text = 'X', font = ("Arial",70))
-    elif i == 2 and j == 1:
-        buttons[2][1].configure(text = 'X', font = ("Arial",70))
-    elif i == 2 and j == 2:
-        buttons[2][2].configure(text = 'X', font = ("Arial",70))
+    buttons[i][j].configure(text  = 'X', font = ("Arial",70))
 
 def create_button_paddings(root):
     global buttons
