@@ -3,7 +3,6 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
-
 board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create 4 by 4 Board for board and reset button
 buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create corresponding buttons for each box
 current_player = 'X'
@@ -146,7 +145,7 @@ def draw(root,i,j):
             current_player = 'X'
     check_win_or_draw(root)
 
-def create_button_paddings(root):
+def create_buttons(root):
     global buttons
     global playerx_label
     global playery_label
@@ -182,7 +181,7 @@ def create_button_paddings(root):
     buttons[2][2].grid(row = 2, column = 2, sticky = "nsew", padx = (0,20))
     #Paddings to top, right, and left sides
 
-    buttons[3][2] = Button(root, text = 'Reset', height = 3, width = 10, relief = SOLID, bg = "#F0FFF0", borderwidth=1, command = lambda:reset_board(root))
+    buttons[3][2] = Button(root, text = 'Reset Board', height = 3, width = 10, relief = SOLID, bg = "#F0FFF0", borderwidth=1, command = lambda:reset_board(root))
     buttons[3][2].grid(row = 3, column = 2, sticky = "ew", pady = 20, padx = (0,10))
     #Reset button
 
@@ -200,7 +199,7 @@ def reset_board(root):
     current_player = 'X'
     board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
     buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
-    create_button_paddings(root)
+    create_buttons(root)
 
 def create_gui():
     root = tk.Tk() #Create Window
@@ -220,7 +219,7 @@ def create_gui():
     Grid.columnconfigure(root,1,weight = 1)
     Grid.columnconfigure(root,2,weight = 1)
 
-    create_button_paddings(root)
+    create_buttons(root)
 
     root.mainloop() #Display Window
 
