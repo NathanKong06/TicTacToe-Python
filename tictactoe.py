@@ -103,7 +103,8 @@ def reset_board(root):
 def create_gui():
     root = tk.Tk() #Create Window
     root.title("Tic Tac Toe") #Title
-    root.geometry("700x700") #Default Window Size
+    screen_width, screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
+    root.geometry('%dx%d+%d+%d' % (700, 700, (screen_width/2) - (700/2), (screen_height/2) - (700/2))) #700 x 700 sized screen (Centered)
     root.resizable(True,True) #Resizeable window
     root.minsize(400,400) #Minimum window size
     root.configure(background='#E6E6FA')
