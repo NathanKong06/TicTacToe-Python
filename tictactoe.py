@@ -9,9 +9,9 @@ current_player = 'X'
 player_x_score = 0
 player_y_score = 0
 
-def reset_close_tie_screen(root,tie_screen):
+def reset_close_screen(root,screen):
     reset_board(root)
-    tie_screen.destroy()
+    screen.destroy()
 
 def display_tie_screen(root):
     tie_screen = tk.Tk()
@@ -24,16 +24,12 @@ def display_tie_screen(root):
     background_label = tk.Label(tie_screen, image=background_photo)
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    winner_label = tk.Label(tie_screen, text="It's a tie! \U0001F454", font=("Arial", 20, 'bold'), bg = "white")
-    winner_label.place(relx=0.2, rely=0.5, anchor="center")
-    close_button = tk.Button(tie_screen, text="Close", height = 2, width = 10, bg = "#C9E4FF", relief = SOLID, borderwidth=1, command=lambda: reset_close_tie_screen(root, tie_screen))
+    tie_label = tk.Label(tie_screen, text="It's a tie! \U0001F454", font=("Arial", 20, 'bold'), bg = "white")
+    tie_label.place(relx=0.2, rely=0.5, anchor="center")
+    close_button = tk.Button(tie_screen, text="Close", height = 2, width = 10, bg = "#C9E4FF", relief = SOLID, borderwidth=1, command=lambda: reset_close_screen(root, tie_screen))
     close_button.place(relx=0.8, rely=.5, anchor="center")
 
     tie_screen.mainloop()
-
-def reset_close_victory_screen(root,victory_screen):
-    reset_board(root)
-    victory_screen.destroy()
 
 def display_victory_screen(winner,root):
     victory_screen = tk.Tk()
@@ -52,7 +48,7 @@ def display_victory_screen(winner,root):
         winner = "✕"
     winner_label = tk.Label(victory_screen, text="Player {} wins! \U0001F525".format(winner), font=("Arial", 20, 'bold'), bg = "white")
     winner_label.place(relx=0.5, rely=0.7, anchor="center")
-    close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, bg = "#F08080", relief = SOLID, borderwidth=1, command=lambda: reset_close_victory_screen(root, victory_screen))
+    close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, bg = "#F08080", relief = SOLID, borderwidth=1, command=lambda: reset_close_screen(root, victory_screen))
     close_button.place(relx=0.5, rely=.95, anchor="s")
 
     victory_screen.mainloop()
