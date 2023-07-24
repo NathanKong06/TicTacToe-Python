@@ -41,7 +41,11 @@ def draw(root,i,j):
     global current_player
     global board
     if buttons[i][j]['text'] == '':
-        buttons[i][j].configure(text = current_player, font = ("Arial",80))
+        if current_player == "X":
+            display_object = "✕"
+        else:
+            display_object = "〇"
+        buttons[i][j].configure(text = display_object, font = ("Arial",80))
         board[i][j] = current_player
         if current_player == 'X': #Alternate between X and O
             current_player = 'O'
