@@ -1,2 +1,2 @@
-# TicTacToe-CV-Solver
+# TicTacToe-Python
  
