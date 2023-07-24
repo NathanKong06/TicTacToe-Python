@@ -8,6 +8,28 @@ board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create 4 by 4 Board for board and res
 buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create corresponding buttons for each box
 current_player = 'X'
 
+def reset_close_tie_screen(root,tie_screen):
+    reset_board(root)
+    tie_screen.destroy()
+
+def display_tie_screen(root):
+    tie_screen = tk.Tk()
+    tie_screen.title("Tie Screen")
+    screen_width, screen_height = tie_screen.winfo_screenwidth(), tie_screen.winfo_screenheight()
+    tie_screen.geometry('%dx%d+%d+%d' % (600, 600, (screen_width/2) - (600/2), (screen_height/2) - (600/2)))
+    tie_screen.resizable(False,False) 
+
+    background_photo = ImageTk.PhotoImage(master=tie_screen, image=Image.open("images/tie.png"))
+    background_label = tk.Label(tie_screen, image=background_photo)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    winner_label = tk.Label(tie_screen, text="It's a tie! \U0001F454", font=("Arial", 20, 'bold'), bg = "white")
+    winner_label.place(relx=0.2, rely=0.5, anchor="center")
+    close_button = tk.Button(tie_screen, text="Close", height = 2, width = 10, bg = "#C9E4FF", relief = SOLID, borderwidth=1, command=lambda: reset_close_tie_screen(root, tie_screen))
+    close_button.place(relx=0.8, rely=.5, anchor="center")
+
+    tie_screen.mainloop()
+
 def reset_close_victory_screen(root,victory_screen):
     reset_board(root)
     victory_screen.destroy()
@@ -25,7 +47,7 @@ def display_victory_screen(winner,root):
 
     winner_label = tk.Label(victory_screen, text="Player {} wins! \U0001F525".format(winner), font=("Arial", 20, 'bold'), bg = "white")
     winner_label.place(relx=0.5, rely=0.7, anchor="center")
-    close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, relief = SOLID, borderwidth=1, command=lambda: reset_close_victory_screen(root, victory_screen))
+    close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, bg = "#F08080", relief = SOLID, borderwidth=1, command=lambda: reset_close_victory_screen(root, victory_screen))
     close_button.place(relx=0.5, rely=.95, anchor="s")
 
     victory_screen.mainloop()
@@ -49,8 +71,7 @@ def check_win_or_draw(root):
     elif board[0][2] == board[1][1] == board[2][0] and board[0][2] != 0:
            display_victory_screen(board[0][2],root)
     elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
-        messagebox.showinfo("Tie!",f"The game is a tie! 👔")
-        reset_board(root)
+        display_tie_screen(root)
 
 def draw(root,i,j):
     global buttons
