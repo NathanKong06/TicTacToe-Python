@@ -53,73 +53,67 @@ def display_victory_screen(winner,root):
 
     victory_screen.mainloop()
 
+def update_x_score():
+    global player_x_score
+    player_x_score = player_x_score + 1
+    playerx_label.config(text="Player ✕: " + str(player_x_score))
+
+def update_y_score():
+    global player_y_score
+    player_y_score = player_y_score + 1
+    playery_label.config(text="Player 〇: " + str(player_y_score))
+
 def check_win_or_draw(root):
     global board
     global player_x_score
     global player_y_score
     if board[0][0] == board[0][1] == board[0][2] and board[0][0] != 0:
         if (board[0][0] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[0][0],root)
     elif board[1][0] == board[1][1] == board[1][2] and board[1][0] != 0:
         if (board[1][0] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[1][0],root)
     elif board[2][0] == board[2][1] == board[2][2] and board[2][0] != 0:
         if (board[2][0] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[2][0],root)
     elif board[0][0] == board[1][0] == board[2][0] and board[0][0] != 0:
         if (board[0][0] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[0][0],root)
     elif board[0][1] == board[1][1] == board[2][1] and board[0][1] != 0:
         if (board[0][1] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[0][1],root)
     elif board[0][2] == board[1][2] == board[2][2] and board[0][2] != 0:
         if (board[0][2] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[0][2],root)
     elif board[0][0] == board[1][1] == board[2][2] and board[0][0] != 0:
         if (board[0][0] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[0][0],root)
     elif board[0][2] == board[1][1] == board[2][0] and board[0][2] != 0:
         if (board[0][2] == 'X'):
-            player_x_score = player_x_score + 1
-            playerx_label.config(text="Player ✕: " + str(player_x_score))
+            update_x_score()
         else:
-            player_y_score = player_y_score + 1
-            playery_label.config(text="Player 〇: " + str(player_y_score))
+            update_y_score()
         display_victory_screen(board[0][2],root)
     elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
         display_tie_screen(root)
