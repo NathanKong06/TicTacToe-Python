@@ -7,6 +7,8 @@ from PIL import Image, ImageTk
 board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create 4 by 4 Board for board and reset button
 buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create corresponding buttons for each box
 current_player = 'X'
+player_x_score = 0
+player_y_score = 0
 
 def reset_close_tie_screen(root,tie_screen):
     reset_board(root)
@@ -45,6 +47,10 @@ def display_victory_screen(winner,root):
     background_label = tk.Label(victory_screen, image=background_photo)
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+    if winner == 'O':
+        winner = "〇"
+    else:
+        winner = "✕"
     winner_label = tk.Label(victory_screen, text="Player {} wins! \U0001F525".format(winner), font=("Arial", 20, 'bold'), bg = "white")
     winner_label.place(relx=0.5, rely=0.7, anchor="center")
     close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, bg = "#F08080", relief = SOLID, borderwidth=1, command=lambda: reset_close_victory_screen(root, victory_screen))
@@ -54,22 +60,72 @@ def display_victory_screen(winner,root):
 
 def check_win_or_draw(root):
     global board
+    global player_x_score
+    global player_y_score
     if board[0][0] == board[0][1] == board[0][2] and board[0][0] != 0:
+        if (board[0][0] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[0][0],root)
     elif board[1][0] == board[1][1] == board[1][2] and board[1][0] != 0:
+        if (board[1][0] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[1][0],root)
     elif board[2][0] == board[2][1] == board[2][2] and board[2][0] != 0:
+        if (board[2][0] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[2][0],root)
     elif board[0][0] == board[1][0] == board[2][0] and board[0][0] != 0:
+        if (board[0][0] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[0][0],root)
     elif board[0][1] == board[1][1] == board[2][1] and board[0][1] != 0:
+        if (board[0][1] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[0][1],root)
     elif board[0][2] == board[1][2] == board[2][2] and board[0][2] != 0:
+        if (board[0][2] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[0][2],root)
     elif board[0][0] == board[1][1] == board[2][2] and board[0][0] != 0:
+        if (board[0][0] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
         display_victory_screen(board[0][0],root)
     elif board[0][2] == board[1][1] == board[2][0] and board[0][2] != 0:
-           display_victory_screen(board[0][2],root)
+        if (board[0][2] == 'X'):
+            player_x_score = player_x_score + 1
+            playerx_label.config(text="Player ✕: " + str(player_x_score))
+        else:
+            player_y_score = player_y_score + 1
+            playery_label.config(text="Player 〇: " + str(player_y_score))
+        display_victory_screen(board[0][2],root)
     elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
         display_tie_screen(root)
 
@@ -92,6 +148,8 @@ def draw(root,i,j):
 
 def create_button_paddings(root):
     global buttons
+    global playerx_label
+    global playery_label
     button_color = "#AFEEEE"
     h = 5
     w = 10
@@ -127,6 +185,13 @@ def create_button_paddings(root):
     buttons[3][2] = Button(root, text = 'Reset', height = 3, width = 10, relief = SOLID, bg = "#F0FFF0", borderwidth=1, command = lambda:reset_board(root))
     buttons[3][2].grid(row = 3, column = 2, sticky = "ew", pady = 20, padx = (0,10))
     #Reset button
+
+    playerx_label = tk.Label(root, text="Player ✕: " + str(player_x_score), font = ("Arial",20), bg = "#E6E6FA")
+    playerx_label.grid(row=3, column=0)
+
+    playery_label = tk.Label(root, text="Player 〇: " + str(player_y_score), font = ("Arial",20), bg = "#E6E6FA" )
+    playery_label.grid(row=3, column=1)
+    #Player scores
 
 def reset_board(root):
     global board 
