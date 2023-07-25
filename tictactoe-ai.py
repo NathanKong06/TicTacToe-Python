@@ -9,9 +9,6 @@ current_player = 'X'
 player_x_score = 0
 player_y_score = 0
 
-#Depth
-#Alpha Beta
-
 def reset_close_screen(root,screen):
     reset_board(root)
     screen.destroy()
