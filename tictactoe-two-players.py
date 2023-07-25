@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import messagebox
 from PIL import Image, ImageTk
 
 board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create 4 by 4 Board for board and reset button
