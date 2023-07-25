@@ -74,50 +74,60 @@ def check_win_or_draw(root):
         else:
             update_y_score()
         display_victory_screen(board[0][0],root)
+        return True
     elif board[1][0] == board[1][1] == board[1][2] and board[1][0] != 0:
         if (board[1][0] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[1][0],root)
+        return True
     elif board[2][0] == board[2][1] == board[2][2] and board[2][0] != 0:
         if (board[2][0] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[2][0],root)
+        return True
     elif board[0][0] == board[1][0] == board[2][0] and board[0][0] != 0:
         if (board[0][0] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[0][0],root)
+        return True
     elif board[0][1] == board[1][1] == board[2][1] and board[0][1] != 0:
         if (board[0][1] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[0][1],root)
+        return True
     elif board[0][2] == board[1][2] == board[2][2] and board[0][2] != 0:
         if (board[0][2] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[0][2],root)
+        return True
     elif board[0][0] == board[1][1] == board[2][2] and board[0][0] != 0:
         if (board[0][0] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[0][0],root)
+        return True
     elif board[0][2] == board[1][1] == board[2][0] and board[0][2] != 0:
         if (board[0][2] == 'X'):
             update_x_score()
         else:
             update_y_score()
         display_victory_screen(board[0][2],root)
+        return True
     elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
         display_tie_screen(root)
+        return True
+    return False
 
 def random_move():
     global board
@@ -135,8 +145,8 @@ def draw(root,i,j):
     if buttons[i][j]['text'] == '':
         buttons[i][j].configure(text = "✕", font = ("Arial",80))
         board[i][j] = current_player
-        check_win_or_draw(root)
-        random_move()
+        if (not check_win_or_draw(root)):
+            random_move()
         check_win_or_draw(root)
 
 def create_buttons(root):
