@@ -9,6 +9,9 @@ current_player = 'X'
 player_x_score = 0
 player_y_score = 0
 
+#Depth
+#Alpha Beta
+
 def reset_close_screen(root,screen):
     reset_board(root)
     screen.destroy()
@@ -151,12 +154,12 @@ def minimax_check_win(curr_board):
 def minimax_score(curr_board,depth,is_maximizing):
     result = minimax_check_win(curr_board)
     if result == 'X':
-        return 1
+        return 10 - depth
     elif result == 'O':
-        return -1
+        return depth - 10
     elif result == "tie":
         return 0
-    if is_maximizing:
+    if is_maximizing: #X always maximizes
         best_score = -100 #Set low score for maximization
         empty_spots = [(row, col) for row in range(3) for col in range(3) if curr_board[row][col] == 0]
         for spots in empty_spots: 
@@ -166,7 +169,7 @@ def minimax_score(curr_board,depth,is_maximizing):
             curr_board[spots[0]][spots[1]] = 0 
             best_score = max(best_score,score) #Maximize score
         return best_score
-    else:
+    else: #O always minimizes
         best_score = 100 #Set high score for minimization
         empty_spots = [(row, col) for row in range(3) for col in range(3) if curr_board[row][col] == 0]
         for spots in empty_spots: 
