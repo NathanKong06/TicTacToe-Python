@@ -160,7 +160,7 @@ def minimax_score(curr_board,depth,is_maximizing):
         best_score = -100 
         empty_spots = [(row, col) for row in range(3) for col in range(3) if curr_board[row][col] == 0]
         for spots in empty_spots: 
-            curr_board[spots[0]][spots[1]] = "O" 
+            curr_board[spots[0]][spots[1]] = "X" 
             copy_board = copy.deepcopy(curr_board)
             score = minimax_score(copy_board,depth+1,False) 
             curr_board[spots[0]][spots[1]] = 0 
@@ -170,7 +170,7 @@ def minimax_score(curr_board,depth,is_maximizing):
         best_score = 100 
         empty_spots = [(row, col) for row in range(3) for col in range(3) if curr_board[row][col] == 0]
         for spots in empty_spots: 
-            curr_board[spots[0]][spots[1]] = "X" 
+            curr_board[spots[0]][spots[1]] = "O" 
             score = minimax_score(curr_board,depth+1,True) 
             curr_board[spots[0]][spots[1]] = 0 
             best_score = min(best_score,score)
@@ -179,16 +179,16 @@ def minimax_score(curr_board,depth,is_maximizing):
 def minimax_move():
     global board
     global buttons
-    best_score = -100 #Default low score
+    best_score = 100 #Default low score
     empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
     for spots in empty_spots: #For every empty spot
         board[spots[0]][spots[1]] = "O" #Try out the spot 
         copy_board = copy.deepcopy(board)
         score = minimax_score(copy_board,0,True) #Calculate the score with the spot tried out
         board[spots[0]][spots[1]] = 0 #Undo the change
-        if score > best_score: #Set best score and best move
+        if score < best_score: #Set best score and best move
             best_score = score
-            best_move = (spots[0],spots[1])
+            best_move = spots
     board[best_move[0]][best_move[1]] = "O" 
     buttons[best_move[0]][best_move[1]].configure(text = "〇", font = ("Arial",80))
     #Play the best move with the highest score
