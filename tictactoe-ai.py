@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageTk
-import copy
 
 board = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create 4 by 4 Board for board and reset button
 buttons = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]] #Create corresponding buttons for each box
@@ -13,8 +12,12 @@ def reset_close_screen(root,screen):
     reset_board(root)
     screen.destroy()
 
+def disable_x():
+    pass
+
 def display_tie_screen(root):
     tie_screen = tk.Tk()
+    tie_screen.overrideredirect(True)
     tie_screen.title("Tie Screen")
     screen_width, screen_height = tie_screen.winfo_screenwidth(), tie_screen.winfo_screenheight()
     tie_screen.geometry('%dx%d+%d+%d' % (600, 600, (screen_width/2) - (600/2), (screen_height/2) - (600/2)))
@@ -29,10 +32,12 @@ def display_tie_screen(root):
     close_button = tk.Button(tie_screen, text="Close", height = 2, width = 10, bg = "#C9E4FF", relief = SOLID, borderwidth=1, command=lambda: reset_close_screen(root, tie_screen))
     close_button.place(relx=0.8, rely=.5, anchor="center")
 
+    tie_screen.protocol("WM_DELETE_WINDOW", disable_x)
     tie_screen.mainloop()
 
 def display_victory_screen(winner,root):
     victory_screen = tk.Tk()
+    victory_screen.overrideredirect(True)
     victory_screen.title("Victory Screen")
     screen_width, screen_height = victory_screen.winfo_screenwidth(), victory_screen.winfo_screenheight()
     victory_screen.geometry('%dx%d+%d+%d' % (600, 400, (screen_width/2) - (600/2), (screen_height/2) - (400/2)))
@@ -51,6 +56,7 @@ def display_victory_screen(winner,root):
     close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, bg = "#F08080", relief = SOLID, borderwidth=1, command=lambda: reset_close_screen(root, victory_screen))
     close_button.place(relx=0.5, rely=.95, anchor="s")
 
+    victory_screen.protocol("WM_DELETE_WINDOW", disable_x)
     victory_screen.mainloop()
 
 def update_x_score():
@@ -128,28 +134,28 @@ def check_win_or_draw(root):
         return True
     return False
 
-def minimax_check_win(curr_board):
-    if curr_board[0][0] == curr_board[0][1] == curr_board[0][2] and curr_board[0][0] != 0:
-        return curr_board[0][0]
-    elif curr_board[1][0] == curr_board[1][1] == curr_board[1][2] and curr_board[1][0] != 0:
-        return curr_board[1][0]
-    elif curr_board[2][0] == curr_board[2][1] == curr_board[2][2] and curr_board[2][0] != 0:
-        return curr_board[2][0]
-    elif curr_board[0][0] == curr_board[1][0] == curr_board[2][0] and curr_board[0][0] != 0:
-        return curr_board[0][0]
-    elif curr_board[0][1] == curr_board[1][1] == curr_board[2][1] and curr_board[0][1] != 0:
-        return curr_board[0][1]
-    elif curr_board[0][2] == curr_board[1][2] == curr_board[2][2] and curr_board[0][2] != 0:
-        return curr_board[0][2]
-    elif curr_board[0][0] == curr_board[1][1] == curr_board[2][2] and curr_board[0][0] != 0:
-        return curr_board[0][0]
-    elif curr_board[0][2] == curr_board[1][1] == curr_board[2][0] and curr_board[0][2] != 0:
-        return curr_board[0][2]
-    elif 0 not in curr_board[0] and 0 not in curr_board[1] and 0 not in curr_board[2]:
+def minimax_check_win():
+    if board[0][0] == board[0][1] == board[0][2] and board[0][0] != 0:
+        return board[0][0]
+    elif board[1][0] == board[1][1] == board[1][2] and board[1][0] != 0:
+        return board[1][0]
+    elif board[2][0] == board[2][1] == board[2][2] and board[2][0] != 0:
+        return board[2][0]
+    elif board[0][0] == board[1][0] == board[2][0] and board[0][0] != 0:
+        return board[0][0]
+    elif board[0][1] == board[1][1] == board[2][1] and board[0][1] != 0:
+        return board[0][1]
+    elif board[0][2] == board[1][2] == board[2][2] and board[0][2] != 0:
+        return board[0][2]
+    elif board[0][0] == board[1][1] == board[2][2] and board[0][0] != 0:
+        return board[0][0]
+    elif board[0][2] == board[1][1] == board[2][0] and board[0][2] != 0:
+        return board[0][2]
+    elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
         return "tie"
 
-def minimax_score(curr_board,depth,is_maximizing):
-    result = minimax_check_win(curr_board)
+def minimax_score(depth,is_maximizing):
+    result = minimax_check_win()
     if result == 'X':
         return 10 - depth
     elif result == 'O':
@@ -158,21 +164,20 @@ def minimax_score(curr_board,depth,is_maximizing):
         return 0
     if is_maximizing: #X always maximizes
         best_score = -100 #Set low score for maximization
-        empty_spots = [(row, col) for row in range(3) for col in range(3) if curr_board[row][col] == 0]
+        empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
         for spots in empty_spots: 
-            curr_board[spots[0]][spots[1]] = "X" 
-            copy_board = copy.deepcopy(curr_board)
-            score = minimax_score(copy_board,depth+1,False) 
-            curr_board[spots[0]][spots[1]] = 0 
+            board[spots[0]][spots[1]] = "X" 
+            score = minimax_score(depth+1,False) 
+            board[spots[0]][spots[1]] = 0 
             best_score = max(best_score,score) #Maximize score
         return best_score
     else: #O always minimizes
         best_score = 100 #Set high score for minimization
-        empty_spots = [(row, col) for row in range(3) for col in range(3) if curr_board[row][col] == 0]
+        empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
         for spots in empty_spots: 
-            curr_board[spots[0]][spots[1]] = "O" 
-            score = minimax_score(curr_board,depth+1,True) 
-            curr_board[spots[0]][spots[1]] = 0 
+            board[spots[0]][spots[1]] = "O" 
+            score = minimax_score(depth+1,True) 
+            board[spots[0]][spots[1]] = 0 
             best_score = min(best_score,score) #Minimize score
         return best_score 
 
@@ -183,8 +188,7 @@ def minimax_move():
     empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
     for spots in empty_spots: #For every empty spot
         board[spots[0]][spots[1]] = "O" #Try out the spot 
-        copy_board = copy.deepcopy(board)
-        score = minimax_score(copy_board,0,True) #Calculate the score with the spot tried out
+        score = minimax_score(0,True) #Calculate the score with the spot tried out
         board[spots[0]][spots[1]] = 0 #Undo the change
         if score < best_score: #Set best score and best move as minimization since AI is O
             best_score = score
