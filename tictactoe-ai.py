@@ -128,6 +128,7 @@ def check_win_or_draw(root):
     return False
 
 def minimax_check_win():
+    global board
     if board[0][0] == board[0][1] == board[0][2] and board[0][0] != 0:
         return board[0][0]
     elif board[1][0] == board[1][1] == board[1][2] and board[1][0] != 0:
@@ -148,6 +149,7 @@ def minimax_check_win():
         return "tie"
 
 def minimax_score(depth,is_maximizing):
+    global board
     result = minimax_check_win()
     if result == 'X':
         return 10 - depth
