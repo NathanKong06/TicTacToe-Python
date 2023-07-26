@@ -9,12 +9,16 @@ current_player = 'X'
 player_x_score = 0
 player_y_score = 0
 
+def disable_x():
+    pass
+
 def reset_close_screen(root,screen):
     reset_board(root)
     screen.destroy()
 
 def display_tie_screen(root):
     tie_screen = tk.Tk()
+    tie_screen.overrideredirect(True)
     tie_screen.title("Tie Screen")
     screen_width, screen_height = tie_screen.winfo_screenwidth(), tie_screen.winfo_screenheight()
     tie_screen.geometry('%dx%d+%d+%d' % (600, 600, (screen_width/2) - (600/2), (screen_height/2) - (600/2)))
@@ -29,10 +33,12 @@ def display_tie_screen(root):
     close_button = tk.Button(tie_screen, text="Close", height = 2, width = 10, bg = "#C9E4FF", relief = SOLID, borderwidth=1, command=lambda: reset_close_screen(root, tie_screen))
     close_button.place(relx=0.8, rely=.5, anchor="center")
 
+    tie_screen.protocol("WM_DELETE_WINDOW", disable_x)
     tie_screen.mainloop()
 
 def display_victory_screen(winner,root):
     victory_screen = tk.Tk()
+    victory_screen.overrideredirect(True)
     victory_screen.title("Victory Screen")
     screen_width, screen_height = victory_screen.winfo_screenwidth(), victory_screen.winfo_screenheight()
     victory_screen.geometry('%dx%d+%d+%d' % (600, 400, (screen_width/2) - (600/2), (screen_height/2) - (400/2)))
@@ -51,6 +57,7 @@ def display_victory_screen(winner,root):
     close_button = tk.Button(victory_screen, text="Close", height = 2, width = 10, bg = "#F08080", relief = SOLID, borderwidth=1, command=lambda: reset_close_screen(root, victory_screen))
     close_button.place(relx=0.5, rely=.95, anchor="s")
 
+    victory_screen.protocol("WM_DELETE_WINDOW", disable_x)
     victory_screen.mainloop()
 
 def update_x_score():
