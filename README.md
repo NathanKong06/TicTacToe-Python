@@ -5,7 +5,7 @@ This project contains three implementations of the classic Tic Tac Toe game in P
 - Play against a friend locally on the same computer.
 ### 2. Tic Tac Toe vs. Random Bot (tictactoe-random.py): 
 - Play against a bot that makes random moves.
-### 3. Tic Tac Toe vs. AI with Minimax and Alpha-Beta Pruning (tictactoe-ai.py): 
+### 3. Tic Tac Toe vs. AI using Minimax and Alpha-Beta Pruning (tictactoe-ai.py): 
 - Challenge an AI opponent that uses the Minimax algorithm with Alpha-Beta pruning for optimal moves. Good luck trying to beat it.
 
 ## Dependencies
