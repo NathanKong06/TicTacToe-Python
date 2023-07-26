@@ -148,7 +148,7 @@ def minimax_check_win():
     elif 0 not in board[0] and 0 not in board[1] and 0 not in board[2]:
         return "tie"
 
-def minimax_score(depth,is_maximizing):
+def minimax_score(depth,is_maximizing,alpha,beta):
     global board
     result = minimax_check_win()
     if result == 'X':
@@ -162,18 +162,24 @@ def minimax_score(depth,is_maximizing):
         empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
         for spots in empty_spots: 
             board[spots[0]][spots[1]] = "X" 
-            score = minimax_score(depth+1,False) 
+            score = minimax_score(depth+1,False,alpha,beta) 
             board[spots[0]][spots[1]] = 0 
             best_score = max(best_score,score) #Maximize score
+            alpha = max(alpha,score)
+            if beta <= alpha:
+                break
         return best_score
     else: #O always minimizes
         best_score = 100 #Set high score for minimization
         empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
         for spots in empty_spots: 
             board[spots[0]][spots[1]] = "O" 
-            score = minimax_score(depth+1,True) 
+            score = minimax_score(depth+1,True,alpha,beta) 
             board[spots[0]][spots[1]] = 0 
             best_score = min(best_score,score) #Minimize score
+            beta = min(beta,score)
+            if beta <= alpha:
+                break
         return best_score 
 
 def minimax_move():
@@ -183,7 +189,7 @@ def minimax_move():
     empty_spots = [(row, col) for row in range(3) for col in range(3) if board[row][col] == 0]
     for spots in empty_spots: #For every empty spot
         board[spots[0]][spots[1]] = "O" #Try out the spot 
-        score = minimax_score(0,True) #Calculate the score with the spot tried out
+        score = minimax_score(0,True,-100,100) #Calculate the score with the spot tried out
         board[spots[0]][spots[1]] = 0 #Undo the change
         if score < best_score: #Set best score and best move as minimization since AI is O
             best_score = score
